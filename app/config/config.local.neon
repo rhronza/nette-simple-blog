@@ -1,0 +1,11 @@
+parameters:
+
+
+database:
+	dsn: 'mysql:host=127.0.0.1;dbname=nette-simple-blog'
+	user: srvcmn
+	password: TaModZFqmudCkVMC
+	options:
+		lazy: yes
+
+

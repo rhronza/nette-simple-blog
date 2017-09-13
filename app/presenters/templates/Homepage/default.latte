@@ -1,0 +1,66 @@
+{block content}
+    {*$uzivatel*}
+    <div style="text-align: center; font: 12px Verdana; padding-top: 70px; margin-top: 10px">
+        {*<a n:href="Post:create" n:if="$user->loggedIn">Nový příspěvek</a>*}
+        <a n:href="Post:create" n:if="$user->loggedIn" style="font-size: 2em; text-decoration:none">
+	    <font style="color: #006AEB">
+		<div class="tooltip">
+		    &#10010
+		    <span class="tooltiptext">
+			Přidat příspěvek
+		    </span>
+		</div>
+		
+	    </font>
+	</a>
+    </div>
+        
+    <table class="tabulka" style="margin-top: 10px">
+        <th class="bunkaTabulky bunkaNadpisu">Titulek <br/> příspěvku</th>    
+                <th class="bunkaTabulky bunkaNadpisu">Obsah příspěvku</th>
+                <th class="bunkaTabulky bunkaNadpisu" style="width:50px" >Upravit <br/>příspěvek</th>
+                <th class="bunkaTabulky bunkaNadpisu">Vytvořeno <br/>Aktualizováno</th>
+                <th class="bunkaTabulky bunkaNadpisu" style="width:20px" >ID</th>
+    {foreach $posts as $post}
+            <tr class="radekTabulky">
+                <td class="bunkaTabulky">
+                    <a href="{link Post:show $post->id}" >
+                        <strong>
+			    <div class="tooltip">
+				{$post->title} {*zvládl by i neobjektový zápis přes hranaté závorky *}
+				<span class="tooltiptext">
+				    Zobrazit příspěvky
+				</span>
+			    </div>
+                            
+                        </strong> 
+                    </a>
+		</td>
+		<td class="bunkaTabulky" style="text-align: left"><div> {$post->content}</div></td>
+		
+                <td class="bunkaTabulky" style="width:50px">
+                    {if $user->loggedIn}
+                        <!-- <a n:href="Post:edit $post->id"> upravit</a> -->
+			
+                        <a n:href="Post:edit $post->id" style="text-decoration: none"> 
+			    <i style="font-size:36px; text-decoration: none;color:#006AEB" class="fa">
+				<div class="tooltip " >
+				    &#xf14b;
+				    <span class="tooltiptext">
+					Upravit příspěvek
+				    </span>
+				</div>
+				
+			    </i>
+			</a>
+                    {else}
+                        <div>nepřihlášen<br/>nepovoleno</div>
+                    {/if}
+                </td>
+                <td class="bunkaTabulky"><div> {$post->created_at|date:'%d.%m.%Y'.' ('.'%H:%M:%S'.')' }</div></td>
+                <td class="bunkaTabulky" style="width:20px"> {$post->id}</td>
+            </tr>
+    {/foreach}
+    </table>
+    <br/>
+{/block}

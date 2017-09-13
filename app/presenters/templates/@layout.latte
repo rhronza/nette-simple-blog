@@ -1,0 +1,103 @@
+ {**
+ * @param string   $basePath web base path
+ * @param array    $flashes  flash messages
+ *}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Sandbox</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{$basePath}/css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	{block head}{/block}
+</head>
+
+<body>
+    
+    {*<nav style="height: 40px; margin: 0px; padding: 0px">*}
+    {*<div style="text-align: center; margin: 0px auto">*}
+    <div style="top: 10px; position: fixed; height: 70px;background-color: #333; 
+		width: 100%; margin: -10px 0px 0px -5px;  padding: -5px 0px 0px 0px; 
+		border-radius: 0px; border-style: none; font: 20px Georgia">
+    <font style="color: white">
+    {*<div style="position: static">*}
+    {* obrazovka pro přihlášení*}
+    
+    <ul style="margin: 20px 0px 0px 40px; list-style-type: none">
+        {*<li><a n:href="Homepage:">Články</a></li>*}
+        {if $uzivatel<>""}
+            <li><a n:href="Sign:out">
+		    <font style="color: white">
+			{*Odhlásit uživatele: {$uzivatel*}
+			<i style="font-size:36px" class="fa">
+			    <div class="tooltip">
+				&#xf011;
+				<span class="tooltiptext">
+				    odhlášení uživatele: {$uzivatel}
+				</span>
+			    </div>
+			</i>
+		    </font>
+		</a>
+	    </li>
+        {else}
+            <li><a n:href="Sign:in">
+		    <font style="color: white">
+			{*Přihlásit*}
+			<i style="font-size:36px" class="fa">
+			    <div class="tooltip">
+				{*&#xf140;*}
+				{*&#xf0c0;*}
+				&#xf183;
+				<span class="tooltiptext">
+				    Přihlášení uživatele
+				</span>
+			    </div>
+			</i>
+		    </font>
+		</a>
+	    </li>
+        {/if}
+    </ul>	
+    {ifCurrent Homepage:default}
+	{else}
+	<h3 block="title" style="text-align:right; margin: -35px 40px 0px 0px; padding: 0px">
+	    <a n:href="Homepage:default" >
+		<font style="color: white">
+		    {*Příspěvky*}
+		    <i style="font-size:24px" class="fa">
+			<div class="tooltip">
+			    &#xf1c0;
+			    <span class="tooltiptextVlevo">
+				Přechod na seznam příspěvků
+			    </span>
+			</div>
+			
+		    </i>
+		</font>
+	    </a>
+	</h3>
+    {/ifCurrent}
+    
+    </font>
+    </div>
+    {*</div>*}
+    
+    {*</nav>*}
+  
+   <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+
+        {* tady se vloží jdnotlivé latte*}
+	{include content}
+
+	{block scripts}
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://nette.github.io/resources/js/netteForms.min.js"></script>
+	<script src="{$basePath}/js/main.js"></script>
+	{/block}
+
+</body>
+</html>

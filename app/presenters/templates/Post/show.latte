@@ -1,0 +1,64 @@
+{block content}
+    <div style ="padding-top:15px; padding-left: 40px;text-align: left; margin-top: 70px"> </div>
+    <table style="margin: 0px auto; width: 95%; border-collapse: separate; border-style: solid; padding:0px; border-radius: 5px; border-spacing: 0px" >
+        <tr>
+	    <td class="prispevek">
+                <a n:href="edit $post33->id" n:tag-if="$user->loggedIn" style="text-decoration:none">
+                    <strong>
+                        <div style="font-size: 1.5em; background-color: #006AEB; color: white">
+			    <div class="tooltip">
+				{$post33->title}
+				<span class="tooltiptext">
+				    Upravit příspěvek
+				</span>
+			    </div>
+                            
+                        </div> 
+                    </strong>
+                </a>
+                <div style="font-size: 0.7em;  background-color: #006AEB; color: white">
+                    publikován/upraven:{$post33->created_at|date:'%d.%m.%Y'.' ('.'%H:%M:%S'.')' }
+                </div>
+	    </td>
+	</tr>
+        <tr>
+	    <td>
+                <div style="margin-top: 10px">{$post33->content}</div>
+                
+                {*<div>{$post33->id}</div>*}
+	    </td>
+	</tr>
+    </table>    
+    <br/>
+
+    {* hlavička tabulky komentářů*}
+    <table class="tabulka" style="width: 80%; margin-top:-10px">
+    <th class="bunkaTabulky bunkaNadpisu">Jméno komentátora</th>
+    <th class="bunkaTabulky bunkaNadpisu">Email</th>
+    <th class="bunkaTabulky bunkaNadpisu">Obsah komentáře</th>
+    <th class="bunkaTabulky bunkaNadpisu">Vytvořen</th>                
+
+    {foreach $blogcomments as $komentar}
+            <tr>
+                <td class="bunkaTabulky">
+                    <a href="mailto:{$komentar->email}" n:tag-if="$komentar->email">
+                        <div>{$komentar->name}</div></a></td>
+                <td class="bunkaTabulky"><div>{$komentar->email}</div></td>
+                <td class="bunkaTabulky" style="text-align: left" ><div>{$komentar->content}</div></td>
+                <td class="bunkaTabulky" style="font-size: 0.7em"><div>{$komentar->created_at}</div></td>
+            </tr>
+    {/foreach}  
+    </table>
+
+    <table class="vycentrujTabulku">
+         <tr><td>
+            {if $user->loggedIn}
+                <h1> Vložte nový komentář </h1>
+                {control komponentovyFormular}
+            {else}
+                <h1> Uživatel není přihlášen - přidání komentáře není povoleno </h1>
+            {/if}
+        </td></tr>
+    </table>
+{/block}
+
